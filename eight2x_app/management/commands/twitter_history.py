@@ -1,9 +1,11 @@
 from datetime import datetime
-from pytz import utc
+from time import sleep
+
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 from django.db import Error
+from pytz import utc
 
 from eight2x_app.lib.geocode import get_country
 from eight2x_app.lib.twitter_base import TwitterBase
@@ -32,6 +34,7 @@ class Command(BaseCommand, TwitterBase):
             next_option.save()
         
         while True:
+            sleep(2)
             response = self.request('tweets/search/fullarchive/development.json', params)
             if response is not None:
                 for s in response['results']:
@@ -53,7 +56,8 @@ class Command(BaseCommand, TwitterBase):
                         
                         status = Status()
                         status.id = s['id']
-                        status.created_at = utc.localize(datetime.strptime(s['created_at'], '%a %b %d %H:%M:%S +0000 %Y'))
+                        status.created_at = utc.localize(
+                            datetime.strptime(s['created_at'], '%a %b %d %H:%M:%S +0000 %Y'))
                         status.text = s['text']
                         status.entities = []
                         if s['entities']['urls'] is not None:
