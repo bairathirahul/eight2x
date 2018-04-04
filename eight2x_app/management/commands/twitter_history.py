@@ -4,6 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 from django.db import Error
 from pytz import utc
+from time import sleep
 
 from eight2x_app.lib.geocode import get_country
 from eight2x_app.models import Status, User, Option
@@ -20,7 +21,6 @@ class Command(BaseCommand):
         query = ' OR '.join(settings.TWITTER_SEARCH_HASHTAGS)
         
         while True:
-        
             try:
                 max_id = Option.objects.get(option_name='max_id')
             except ObjectDoesNotExist:
@@ -74,3 +74,4 @@ class Command(BaseCommand):
             
             max_id.option_value = statuses[len(statuses) - 1].id
             max_id.save()
+            sleep(5)
