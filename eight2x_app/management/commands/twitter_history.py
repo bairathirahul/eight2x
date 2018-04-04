@@ -34,7 +34,7 @@ class Command(BaseCommand, TwitterBase):
             next_option.save()
         
         while True:
-            sleep(2)
+            sleep(10)
             response = self.request('tweets/search/fullarchive/development.json', params)
             if response is not None:
                 for s in response['results']:
