@@ -22,6 +22,9 @@ class Status(models.Model):
     favorite_count = models.IntegerField()
     geo = models.ListField()
     country = models.TextField()
+    predicted_country = models.BooleanField(default=False)
+    sentiment = models.TextField(default='')
+    labels = models.ListField(default=[])
 
 
 class Option(models.Model):
