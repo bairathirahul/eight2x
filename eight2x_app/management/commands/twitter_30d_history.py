@@ -1,3 +1,7 @@
+"""
+    Project: 82x
+    Authors: Rahul Bairathi, Nipun Gupta, Rajendra Jadi
+"""
 from datetime import datetime
 from time import sleep
 
@@ -13,6 +17,9 @@ from eight2x_app.models import Option, Status, User
 
 
 class Command(BaseCommand, TwitterBase):
+    """
+    Read historical tweets
+    """
     help = 'Load Tweets history'
     
     def __init__(self, *args, **kwargs):
@@ -26,6 +33,7 @@ class Command(BaseCommand, TwitterBase):
         params['maxResults'] = 100
         
         try:
+            # select the last read tweet id
             next_option = Option.objects.get(option_name='tweet_next_token')
             if len(next_option.option_value.strip()) > 0:
                 params['next'] = next_option.option_value
@@ -46,6 +54,7 @@ class Command(BaseCommand, TwitterBase):
                             user = User()
                             user.id = int(s['user']['id'])
                         
+                        # create user obje t
                         user.name = s['user']['name']
                         user.screen_name = s['user']['screen_name']
                         user.location = s['user']['location']
@@ -54,6 +63,7 @@ class Command(BaseCommand, TwitterBase):
                         user.time_zone = s['user']['time_zone']
                         user.save()
                         
+                        # create status object
                         status = Status()
                         status.id = s['id']
                         status.created_at = utc.localize(

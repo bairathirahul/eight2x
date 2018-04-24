@@ -1,3 +1,7 @@
+"""
+    Project: 82x
+    Authors: Rahul Bairathi, Nipun Gupta, Rajendra Jadi
+"""
 import re
 from time import sleep
 
@@ -33,24 +37,24 @@ class Command(BaseCommand):
         :return: Nothing
         """
         # Read list of countries
-        countries = Option.objects.get(option_name='countries')
+        labels = Option.objects.get(option_name='labels')
         tokenizer = nltk.TweetTokenizer()
         
         # Read tweet labels and prepare training dataset
         training_dataset = []
-        for country in countries.option_value:
-            if country is None:
+        for label in labels.option_value:
+            if label is None:
                 continue
             
             # Extract training words specific to each label
             status_words = list()
-            statuses = Status.objects.filter(country=country)[:100]
+            statuses = Status.objects.filter(country=label)[:100]
             for status in statuses:
                 status.text = self.clean_tweet(status.text)
                 status_words.extend(tokenizer.tokenize(status.text))
             
             status_words = dict((word, True) for word in status_words)
-            training_dataset.append((status_words, country))
+            training_dataset.append((status_words, label))
         
         # Train the Naive Bayes classifier
         classifier = nltk.NaiveBayesClassifier.train(training_dataset)
@@ -63,9 +67,9 @@ class Command(BaseCommand):
                 status_words = tokenizer.tokenize(status.text)
                 status_words = dict((word, True) for word in status_words)
                 # Predict label using the trained model
-                country = classifier.classify(status_words)
-                if country is not None:
-                    status.country = country
+                label = classifier.classify(status_words)
+                if label is not None:
+                    status.label = label
                     status.predicted_country = True
                     status.save()
             sleep(5)

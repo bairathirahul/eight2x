@@ -13,6 +13,12 @@ class Command(BaseCommand):
     help = 'Load Tweets history'
     
     def handle(self, *args, **options):
+        """
+        Initialize OAuthHandler with API keys
+        :param args:
+        :param options:
+        :return:
+        """
         auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
         auth.set_access_token(settings.TWITTER_ACCESS_TOKEN, settings.TWITTER_TOKEN_SECRET)
         
@@ -32,6 +38,7 @@ class TweetListener(tweepy.StreamListener):
                 user = User()
                 user.id = s.author.id
             
+            # Create user object
             user.name = s.author.name
             user.screen_name = s.author.screen_name
             user.location = s.user.location
@@ -41,6 +48,7 @@ class TweetListener(tweepy.StreamListener):
             user.lang = s.author.lang
             user.save()
             
+            # Create status object
             status = Status()
             status.id = s.id
             status.created_at = utc.localize(s.created_at)

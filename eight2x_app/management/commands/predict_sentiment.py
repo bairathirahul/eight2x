@@ -1,3 +1,7 @@
+"""
+    Project: 82x
+    Authors: Rahul Bairathi, Nipun Gupta, Rajendra Jadi
+"""
 import os
 from time import sleep
 
@@ -42,6 +46,11 @@ class Command(BaseCommand):
         return all
     
     def get_word_features(self, wordlist):
+        """
+        Extract word features from the training dictionary
+        :param wordlist:
+        :return:
+        """
         words = nltk.FreqDist(wordlist)
         features = wordlist.keys()
         return features

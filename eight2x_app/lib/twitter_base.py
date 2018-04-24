@@ -1,13 +1,13 @@
+"""
+    Project: 82x
+    Authors: Rahul Bairathi, Nipun Gupta, Rajendra Jadi
+"""
 import json
 from urllib.parse import urlencode
 
 import requests
 from django.conf import settings
 from requests.exceptions import HTTPError, ConnectionError
-"""
-    Project: 82x
-    Authors: Rahul Bairathi, Nipun Gupta, Rajendra Jadi
-"""
 
 class TwitterBase:
     """
