@@ -1,35 +1,27 @@
-from eight2x_app.models import Status
-import nltk
-from nltk.tokenize import TweetTokenizer
-from nltk import pos_tag, ne_chunk
-from nltk.tree import Tree
-from nltk.tag.stanford import StanfordNERTagger
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize, sent_tokenize
 
-import inspect
+stopWords = set(stopwords.words("english"))
+words = word_tokenize(text)
 
-from textacy.vsm import Vectorizer
-import textacy.vsm
+freqTable = dict()
+for word in words:
+    word = word.lower()
+    if word in stopWords:
+        continue
+    if word in freqTable:
+        freqTable[word] += 1
+    else:
+        freqTable[word] = 1
 
-import scipy.sparse as sp
+sentences = sent_tokenize(text)
+sentenceValue = dict()
 
-from tqdm import *
 
-import re
-
-def clean_tweets(tweet):
-    tweet = re.sub(u'http\S+', u'', tweet)
-    tweet = re.sub(u'(\s)@\w+', u'', tweet)
-    tweet = re.sub(u'#', u'', tweet)
-    tweet = tweet.replace(u'RT', u'')
-    return tweet
-
-def generate_summary(statuses):
-    status_tokens = list()
-    tokenizer = TweetTokenizer()
-    
-    for status in statuses:
-        status.text = clean_tweets(status.text)
-        status_tokens.append(tokenizer.tokenize(status.text))
-        
-        
-    pass
+for sentence in sentences:
+    for wordValue in freqTable:
+        if wordValue[0] in sentence.lower():
+            if sentence[:12] in sentenceValue:
+                sentenceValue[sentence[:12]] += wordValue[1]
+            else:
+                sentenceValue[sentence[:12]] = wordValue[1]
