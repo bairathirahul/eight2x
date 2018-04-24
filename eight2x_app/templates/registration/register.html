@@ -15,7 +15,14 @@
         <div class="col-lg-5 col-md-8 col-sm-10">
             <div class="card">
                 <div class="card-body">
-                    <h1 class="h3 text-center">Login</h1>
+                    <h1 class="h3 text-center">Register to 82X</h1>
+                    {% if errors %}
+                        <div class="danger small mb-3">
+                        {% for error in errors %}
+                        {{  error }}
+                        {% endfor %}
+                        </div>
+                    {% endif %}
                     <form method="post">
                         {% csrf_token %}
                         {% for field in form %}
@@ -25,8 +32,9 @@
                             </div>
                         {% endfor %}
                         <div class="form-group">
-                            <button type="submit" class="btn btn-block btn-primary">Login</button>
+                            <button type="submit" class="btn btn-block btn-primary">Register</button>
                         </div>
+                        <p class="text-center mb-0"><a href="{% url 'login' %}">Login</a></p>
                     </form>
                 </div>
             </div>

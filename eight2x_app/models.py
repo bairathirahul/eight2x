@@ -1,7 +1,14 @@
+"""
+    Project: 82x
+    Authors: Rahul Bairathi, Nipun Gupta, Rajendra Jadi
+"""
 from djongo import models
 
 
 class User(models.Model):
+    """
+    Model for Tweet user
+    """
     id = models.IntegerField(primary_key=True)
     name = models.TextField()
     screen_name = models.TextField()
@@ -20,6 +27,9 @@ class User(models.Model):
 
 
 class Status(models.Model):
+    """
+    Model for Tweet status
+    """
     id = models.BigIntegerField(primary_key=True)
     created_at = models.DateTimeField()
     text = models.TextField()
@@ -32,8 +42,7 @@ class Status(models.Model):
     predicted_country = models.BooleanField(default=False)
     sentiment = models.TextField(default='')
     promotion = models.TextField(default='')
-    feedback=models.TextField(default='')
-    
+    feedback = models.TextField(default='')
     
     def as_dict(self):
         return {
@@ -44,10 +53,13 @@ class Status(models.Model):
             'country': self.country,
             'sentiment': self.sentiment,
             'promotion': self.promotion,
-            'issue': self.issue
+            'feedback': self.feedback
         }
 
 
 class Option(models.Model):
+    """
+    Model for application options
+    """
     option_name = models.TextField(primary_key=True)
     option_value = models.TextField()

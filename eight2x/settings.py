@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'xsl0g3m1qh2k@cf!hvy#mr#1k!r3k#aegn5*c07k+zjh5sdoxl'
 DEBUG = True
 
 ALLOWED_HOSTS = ['82x.rahulb.me', 'localhost', '18.217.172.23']
-
 
 # Application definition
 
@@ -70,7 +68,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'eight2x.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -85,7 +82,6 @@ DATABASES = {
         'AUTH_SOURCE': '82x'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -105,7 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -121,7 +116,6 @@ USE_TZ = True
 
 DATETIME_FORMAT = '%Y-%m-%d'
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
@@ -132,10 +126,11 @@ TWITTER_CONSUMER_KEY = '82CGLkocIlQYw3JlWFcgN45hI'
 TWITTER_CONSUMER_SECRET = 'qPqgvlIJsxFZTD6h6CfXObUS1IyhMp8I7t5UCymh9JYoYpB8vD'
 TWITTER_ACCESS_TOKEN = '836480076040581120-F0BUzkRAvuPuhRawOwtRbgTwc2MPpCk'
 TWITTER_TOKEN_SECRET = 'mYDecX20EwBtRH28uotvGsDRRzS7FwSEB85O5fMFfTl3S'
-TWITTER_SEARCH_HASHTAGS = ['iphonex','iphone8','faceid','touchid']
+TWITTER_SEARCH_HASHTAGS = ['iphonex', 'iphone8', 'faceid', 'touchid']
 GOOGLE_API_KEY = 'AIzaSyA5yrBTVoa3X35JUVNKSeTE1kjv0fp0mKE'
 
 LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")

@@ -3,11 +3,11 @@
 {% block content %}
     <div class="row">
         <div class="col-6 tweet-container"
-             data-params='{"country": "{{ country }}", "sentiment": "positive", "start_date": "{{ start_date | date:'Y-m-d' }}", "end_date": "{{ end_date | date:'Y-m-d' }}"}'>
+             data-params='{"country": "{{ country }}", "sentiment": "positive", "promotion": "", "start_date": "{{ start_date | date:'Y-m-d' }}", "end_date": "{{ end_date | date:'Y-m-d' }}"}'>
             <h4 class="mb-3">Positive Tweets</h4>
         </div>
         <div class="col-6 tweet-container"
-             data-params='{"country": "{{ country }}", "sentiment": "negative", "start_date": "{{ start_date | date:'Y-m-d' }}", "end_date": "{{ end_date | date:'Y-m-d' }}"}'>
+             data-params='{"country": "{{ country }}", "sentiment": "negative", "promotion": "", "start_date": "{{ start_date | date:'Y-m-d' }}", "end_date": "{{ end_date | date:'Y-m-d' }}"}'>
             <h4 class="mb-3">Negative / Promotional Tweets</h4>
         </div>
     </div>

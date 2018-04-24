@@ -1,3 +1,7 @@
+"""
+    Project: 82x
+    Authors: Rahul Bairathi, Nipun Gupta, Rajendra Jadi
+"""
 import json
 
 import requests
@@ -6,9 +10,18 @@ from requests.exceptions import HTTPError, ConnectionError
 
 
 def get_country(lat, lng):
+    """
+    Get country from latitude and longitude information using Google Reverse Geocode api
+    :param lat: Latitute
+    :param lng: Longitude
+    :return: Country ISO Code
+    """
+    
+    # Setup the query
     query = dict(latlng=str(lat) + ',' + str(lng), key=settings.GOOGLE_API_KEY)
     geo_api_url = 'https://maps.googleapis.com/maps/api/geocode/json'
     try:
+        # Read the response
         response = requests.get(geo_api_url, params=query)
         if response.status_code == 200:
             response = json.loads(response.text)

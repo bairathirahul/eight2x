@@ -8,6 +8,7 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
+        // Initialize the Geo Chart
         google.charts.load('current', {
             'packages': ['geochart'],
             'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
@@ -15,6 +16,7 @@
         google.charts.setOnLoadCallback(drawRegionsMap);
 
         function drawRegionsMap() {
+            // Draw the chart
             var dataset = {{ fractions | safe }}
             dataset.unshift(['Country', 'Positive Tweet Fraction']);
             var data = google.visualization.arrayToDataTable(dataset);
@@ -23,6 +25,7 @@
             var chart = new google.visualization.GeoChart(document.getElementById('geochart'));
             chart.draw(data, options);
 
+            // Handle Map Region click
             google.visualization.events.addListener(chart, 'select', function(e) {
                 var selection = dataset[chart.getSelection()[0].row + 1];
                 var url = window.location.href.replace('dashboard', 'dashboard/' + selection[0] + '/statuses');

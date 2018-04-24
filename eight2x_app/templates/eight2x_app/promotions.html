@@ -1,0 +1,15 @@
+{% extends 'eight2x_app/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-6 tweet-container"
+             data-params='{"country": "{{ country }}", "promotion": "yes", "start_date": "{{ start_date | date:'Y-m-d' }}", "end_date": "{{ end_date | date:'Y-m-d' }}"}'
+             data-summary="#summary">
+            <h4 class="mb-3">Promotional Tweets</h4>
+        </div>
+        <div class="col-6">
+            <h4 class="mb-3">Summary</h4>
+            <ul id="summary"></ul>
+        </div>
+    </div>
+{% endblock %}

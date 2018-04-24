@@ -4,13 +4,22 @@ from urllib.parse import urlencode
 import requests
 from django.conf import settings
 from requests.exceptions import HTTPError, ConnectionError
-
+"""
+    Project: 82x
+    Authors: Rahul Bairathi, Nipun Gupta, Rajendra Jadi
+"""
 
 class TwitterBase:
+    """
+    Base class to read twitter information
+    """
     TWITTER_URL = 'https://api.twitter.com/'
     TWITTER_API_VERSION = '1.1/'
     
     def __init__(self):
+        """
+        Performs authentication using OAuth2
+        """
         request_url = TwitterBase.TWITTER_URL + 'oauth2/token'
         
         try:
@@ -30,6 +39,12 @@ class TwitterBase:
             print('Error: generating bearer token - ' + str(e))
     
     def request(self, endpoint, params):
+        """
+        Send request to the specificed endpoint
+        :param endpoint: Endpoint name
+        :param params: parameters
+        :return: Tweets
+        """
         request_url = TwitterBase.TWITTER_URL + TwitterBase.TWITTER_API_VERSION + endpoint
         query = urlencode(params)
         

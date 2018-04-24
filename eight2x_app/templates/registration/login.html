@@ -15,7 +15,7 @@
         <div class="col-lg-5 col-md-8 col-sm-10">
             <div class="card">
                 <div class="card-body">
-                    <h1 class="h3 text-center">Login</h1>
+                    <h1 class="h3 text-center">Login to 82X</h1>
                     <form method="post">
                         {% csrf_token %}
                         {% for field in form %}
@@ -27,6 +27,7 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-block btn-primary">Login</button>
                         </div>
+                        <p class="text-center mb-0"><a href="{% url 'register' %}">Register</a></p>
                     </form>
                 </div>
             </div>
