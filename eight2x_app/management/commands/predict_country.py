@@ -1,6 +1,7 @@
 import re
 
 import nltk
+from time import sleep
 from django.core.management.base import BaseCommand
 
 from eight2x_app.models import Status, Option
@@ -26,23 +27,28 @@ class Command(BaseCommand):
         for country in countries.option_value:
             if country is None:
                 continue
-                
+            
             status_words = list()
-            statuses = Status.objects.filter(country=country)[:5]
+            statuses = Status.objects.filter(country=country)[:100]
             for status in statuses:
                 status.text = self.clean_tweet(status.text)
                 status_words.extend(tokenizer.tokenize(status.text))
-                
+            
             status_words = dict((word, True) for word in status_words)
             training_dataset.append((status_words, country))
         
         classifier = nltk.NaiveBayesClassifier.train(training_dataset)
         
         # Read status without countries
-        statuses = Status.objects.filter(country='')[:5]
-        for status in statuses:
-            status.text = self.clean_tweet(status.text)
-            status_words = tokenizer.tokenize(status.text)
-            status_words = dict((word, True) for word in status_words)
-            country = classifier.classify(status_words)
-            print(country)
+        while True:
+            statuses = Status.objects.filter(country='')[:500]
+            for status in statuses:
+                status.text = self.clean_tweet(status.text)
+                status_words = tokenizer.tokenize(status.text)
+                status_words = dict((word, True) for word in status_words)
+                country = classifier.classify(status_words)
+                if country is not None:
+                    status.country = country
+                    status.predicted_country = True
+                    status.save()
+            sleep(5)
