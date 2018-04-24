@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,23 +7,61 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css"/>
 
     <title>82x</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            crossorigin="anonymous"></script>
+    <style>
+        .nav-link {
+            border-bottom: solid 4px transparent;
+        }
+
+        .nav-link.active {
+            border-bottom: solid 4px #007bff;
+        }
+    </style>
 </head>
 <body class="bg-light">
 <header class="bg-white">
-    <div class="container py-3 text-center">
+    <div class="container pt-3 text-center">
         <h1 class="h2">82x</h1>
         <p class="text-uppercase mb-0">
             <small>Welcome {{ request.user.username }}, &nbsp; <a href="{% url 'logout' %}">logout</a></small>
         </p>
+
+        <div class="row">
+            <div class="col-auto">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link{% if request.resolver_match.url_name == 'dashboard' %} active {% endif %}" href="{% url 'dashboard' %}">Dashboard</a>
+                    </li>
+                    {% if country %}
+                    <li class="nav-item">
+                        <a class="nav-link{% if request.resolver_match.url_name == 'statuses' %} active {% endif %}" href="{% url 'statuses' country=country %}">Statuses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link{% if request.resolver_match.url_name == 'promotions' %} active {% endif %}" href="{% url 'promotions' country=country %}">Promotions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link{% if request.resolver_match.url_name == 'issues' %} active {% endif %}" href="{% url 'issues' country=country %}">Issues</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link{% if request.resolver_match.url_name == 'feedbacks' %} active {% endif %}" href="{% url 'feedbacks' country=country %}">Feebacks</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <div class="col-auto ml-auto">
+                <button id="daterangepicker" class="btn btn-primary mb-2" data-start-date="{{ start_date | date:'Y-m-d' }}"
+                        data-end-date="{{ end_date | date:'Y-m-d' }}">Select a Date
+                </button>
+            </div>
+        </div>
     </div>
 </header>
-<div class="container-fluid">
+<div class="container py-3">
     {% block content %}
     {% endblock %}
 </div>
@@ -34,6 +73,6 @@
         crossorigin="anonymous"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-
+<script type="text/javascript" src="{% static 'script.js' %}"></script>
 </body>
 </html>

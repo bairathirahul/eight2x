@@ -119,6 +119,8 @@ USE_L10N = True
 
 USE_TZ = True
 
+DATETIME_FORMAT = '%Y-%m-%d'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -134,3 +136,7 @@ TWITTER_SEARCH_HASHTAGS = ['iphonex','iphone8','faceid','touchid']
 GOOGLE_API_KEY = 'AIzaSyA5yrBTVoa3X35JUVNKSeTE1kjv0fp0mKE'
 
 LOGIN_REDIRECT_URL = 'dashboard'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]

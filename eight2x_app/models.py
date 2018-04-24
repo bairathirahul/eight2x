@@ -10,6 +10,13 @@ class User(models.Model):
     utc_offset = models.IntegerField()
     time_zone = models.TextField()
     lang = models.TextField()
+    
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'screen_name': self.screen_name
+        }
 
 
 class Status(models.Model):
@@ -24,7 +31,21 @@ class Status(models.Model):
     country = models.TextField()
     predicted_country = models.BooleanField(default=False)
     sentiment = models.TextField(default='')
-    labels = models.ListField(default=[])
+    promotion = models.TextField(default='')
+    feedback=models.TextField(default='')
+    
+    
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'created_at': self.created_at.strftime('%Y-%m-%d'),
+            'text': self.text,
+            'user': self.user.as_dict(),
+            'country': self.country,
+            'sentiment': self.sentiment,
+            'promotion': self.promotion,
+            'issue': self.issue
+        }
 
 
 class Option(models.Model):

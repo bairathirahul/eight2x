@@ -60,7 +60,8 @@ class TweetListener(tweepy.StreamListener):
             status.lang = s.lang
             status.predicted_country = False
             status.sentiment = ''
-            status.labels = []
+            status.promotion = ''
+            status.feedback = ''
             status.save()
             print('Inserted tweet with ID ' + str(s.id))
         except Error:
