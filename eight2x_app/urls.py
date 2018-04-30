@@ -17,5 +17,6 @@ urlpatterns = [
     path('dashboard/<country>/feedback', views.feedbacks, name='feedbacks'),
     path('dashboard/<country>/promotions', views.promotions, name='promotions'),
     path('dashboard/<country>/issues', views.issues, name='issues'),
-    path('dashboard', views.dashboard, name='dashboard')
+    path('dashboard', views.dashboard, name='dashboard'),
+    path('profile_image/<screen_name>', views.profile_image, name='profile_image')
 ]

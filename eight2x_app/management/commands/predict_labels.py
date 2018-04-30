@@ -61,7 +61,7 @@ class Command(BaseCommand):
         
         # Read status without labels
         while True:
-            statuses = Status.objects.filter(country='')[:500]
+            statuses = Status.objects.filter({'$or': [{'promotion': ''}, {'feedback': ''}]})[:500]
             for status in statuses:
                 status.text = self.clean_tweet(status.text)
                 status_words = tokenizer.tokenize(status.text)

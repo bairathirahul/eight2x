@@ -15,6 +15,7 @@ from pymongo import MongoClient
 
 from eight2x_app.models import Status
 from eight2x_app.lib.summary import FrequencySummarizer
+from requests import get
 
 
 def index(request):
@@ -79,6 +80,7 @@ def dashboard(request):
     results = db.eight2x_app_status.aggregate([
         {'$match': {
             '$and': [
+                {'promotion': ''},
                 {'created_at': {'$gte': start_date}},
                 {'created_at': {'$lte': end_date}}
             ]
@@ -143,7 +145,7 @@ def tweets(request):
         query['feeback'] = request.GET.get('feeback')
     
     count = Status.objects.filter(**query).count()
-    results = Status.objects.filter(**query).order_by('-created_at').select_related('user')[offset:limit]
+    results = Status.objects.filter(**query).order_by('-created_at')[offset:offset + limit]
     tweets = list()
     texts = list()
     for result in results:
@@ -250,6 +252,11 @@ def promotions(request, country):
     data['country'] = country
     return render(request, 'eight2x_app/promotions.html', data)
 
+
+def profile_image(request, screen_name):
+    url = 'https://twitter.com/' + screen_name + '/profile_image?size=original'
+    request = get(url, stream=True)
+    return HttpResponse(request.content, content_type='image/jpg')
 
 def reply(request):
     pass

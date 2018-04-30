@@ -79,12 +79,16 @@
                     // Fill the list group
                     response.tweets.forEach(function (tweet) {
                         var created = moment(tweet.created_at);
-                        var template = '<div class="list-group-item flex-column align-items-start mb-3">' +
+                        var template = '<div class="list-group-item mb-3">' +
+                            '<div class="row"><div class="col-3 px-2">' +
+                            '<img src="/profile_image/' + tweet.user.screen_name + '" class="img-fluid" alt="" />' +
+                            '</div>' +
+                            '<div class="col-9 px-2 flex-column align-items-start">' +
                             '<div class="d-flex w-100 justify-content-between">' +
                             '<h5 class="mb-1">' + tweet.user.name + '</h5>\n' +
                             '<small>' + created.format('MMM Do') + '</small>' +
                             '</div>' +
-                            '<p class="mb-1">' + tweet.text + '</p></div>';
+                            '<p class="mb-1">' + tweet.text + '</p></div></div></div>';
                         $list_group.append(template);
                     });
                     if ($summary.length > 0) {
