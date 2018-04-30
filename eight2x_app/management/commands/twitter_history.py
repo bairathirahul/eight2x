@@ -28,7 +28,7 @@ class Command(BaseCommand):
                 max_id.save()
             
             try:
-                statuses = api.search(query, since_id=985954338152558598, count=100, max_id=max_id.option_value)
+                statuses = api.search(query, since_id=988814645996675072, count=100, max_id=max_id.option_value)
             except:
                 continue
                 

@@ -19,14 +19,18 @@ class Command(BaseCommand):
         :param options:
         :return:
         """
-        auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
-        auth.set_access_token(settings.TWITTER_ACCESS_TOKEN, settings.TWITTER_TOKEN_SECRET)
         
-        api = tweepy.API(auth)
-        listener = TweetListener()
-        stream = tweepy.Stream(auth=api.auth, listener=listener)
-        stream.filter(track=settings.TWITTER_SEARCH_HASHTAGS)
-
+        while True:
+            try:
+                auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
+                auth.set_access_token(settings.TWITTER_ACCESS_TOKEN, settings.TWITTER_TOKEN_SECRET)
+        
+                api = tweepy.API(auth)
+                listener = TweetListener()
+                stream = tweepy.Stream(auth=api.auth, listener=listener)
+                stream.filter(track=settings.TWITTER_SEARCH_HASHTAGS)
+            except:
+                pass
 
 class TweetListener(tweepy.StreamListener):
     def on_status(self, s):
