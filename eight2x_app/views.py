@@ -135,14 +135,16 @@ def tweets(request):
     query['created_at__lte'] = end_date
     query['country'] = country
     
+    print(request.GET)
+    
     if request.GET.get('sentiment') is not None:
         query['sentiment'] = request.GET.get('sentiment')
         
     if request.GET.get('promotion') is not None:
         query['promotion'] = request.GET.get('promotion')
         
-    if request.GET.get('feeback') is not None:
-        query['feeback'] = request.GET.get('feeback')
+    if request.GET.get('feedback') is not None:
+        query['feedback'] = request.GET.get('feedback')
     
     count = Status.objects.filter(**query).count()
     results = Status.objects.filter(**query).order_by('-created_at')[offset:offset + limit]
